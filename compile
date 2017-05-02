@@ -1,0 +1,2 @@
+info "****** Building Phoenix static assets"
+mix phoenix.digest

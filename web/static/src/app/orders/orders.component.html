@@ -1,0 +1,75 @@
+<div class="orders-container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+        <li class="breadcrumb-item active bread-name">Your orders</li>
+    </ol>
+    <!--<h2> Your Shopping orders is empty.</h2>-->
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
+            <h2 class="orders-title text-center">Your Orders</h2>
+            <hr>
+            <h5 *ngIf="noResults" class="text-center">You have no orders yet. Pick your favorite from <a [routerLink]="['/']">here!</a></h5>
+            <div class="row" *ngFor="let item of _ordersContent | groupby ">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="orderdate-container hidden-md-down">
+                                <div class="main-one">
+                                    <div>Order Placed</div>
+                                </div>
+                                <div class="child-one">
+                                    <div>{{item.date | date: 'longDate'}}</div>
+                                </div>
+                            </div>
+                            <div class="total-container">
+                                <div class="main-one">
+                                    <div>Total</div>
+                                </div>
+                                <div class="child-one">
+                                    <div>${{item.total}}</div>
+                                </div>
+                            </div>
+                            <div class="shipto-container hidden-md-down">
+                                <div class="main-one">
+                                    <div>Ship to</div>
+                                </div>
+                                <div class="child-one">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{item.fullname}}<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item"><b>{{item.fullname}}</b></li>
+                                        <li class="dropdown-item">{{item.address}}</li>
+                                        <li class="dropdown-item">{{item.city}}, {{item.state}}, {{item.zip}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ordernumber-container">
+                                <div class="main-one">
+                                    <div>Order # {{item.prop}}</div>
+                                </div>
+                                <!--<div class="child-one">
+                                     <a [routerLink]="['/user/orders', item.prop]">Order Details</a>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="card-block" *ngFor="let new of item.value">
+                            <div class="row">
+                                <div class="col-md-2 col-12 image-container">
+                                    <img class="orders-img" [src]="new.img">
+                                </div>
+                                <div class="col-md-6 col-12 name-container">
+                                    <a [routerLink]="['/product', new.laptop_id]">{{new.laptop_name}}</a>
+                                </div>
+                                <div class="col-md-2 col-6 price-container">
+                                    <span class="orders-product-price">${{new.price}}</span>
+                                </div>
+                                <div class="col-md-2 col-6 quantity-container">
+                                    <b>Qty: {{new.quantity}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
