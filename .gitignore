@@ -21,3 +21,9 @@ erl_crash.dump
 
 *.log
 priv/static
+
+*.DS_Store
+
+# Angular
+/web/static/dist
+/dist
