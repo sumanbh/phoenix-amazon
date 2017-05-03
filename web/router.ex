@@ -20,6 +20,8 @@ defmodule Amazon.Router do
 
     get "/shop/:page", HomeController, :show
 
+    get "/product/:id", ProductController, :show
+
   end
 
   scope "/", Amazon do

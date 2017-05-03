@@ -2,7 +2,6 @@ defmodule Amazon.Home do
     use Amazon.Web, :model
 
     alias __MODULE__
-    alias Amazon.{Shop, Listings, Home}
 
     def get_listings(obj) do
         query = """

@@ -1,8 +1,7 @@
-defmodule Amazon.Shared do
+defmodule Amazon.Postgres do
   use Amazon.Web, :model
 
     alias __MODULE__
-    alias Amazon.{Shared}
 
   def raw_query(%{query: query, params: params}) do
     {:ok, result} = Ecto.Adapters.SQL.query(Amazon.Repo, query, params)
