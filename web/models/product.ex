@@ -20,7 +20,7 @@ defmodule Amazon.Product do
                 JOIN brand ON laptops.brand_id = brand.id
                 JOIN os ON laptops.os_id = os.id
                 JOIN storage_type ON laptops.storage_type_id = storage_type.id
-                WHERE laptops.price <= ($1 + 150) AND laptops.price >= ($1 - 250)
+                WHERE laptops.price <= ($1 + 150::Decimal) AND laptops.price >= ($1 - 250::Decimal)
                 AND laptops.id != $2;
                 """
         %{query: query, params: [price, id]}

@@ -11,11 +11,11 @@ defmodule Amazon.ProductController do
 
         if length(product) == 0 do
             conn 
-            |> put_status(404) 
+            |> put_status(:not_found) 
             |> json(%{error: "Product not found"})
         else
             [head | _tail] = product
-            price = round(Decimal.to_float(head["price"]))
+            price = head["price"]
 
             similar = Product.get_similar(price, product_id)
                 |> Postgres.raw_query()
