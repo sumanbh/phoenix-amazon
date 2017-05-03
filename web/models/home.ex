@@ -1,12 +1,10 @@
-defmodule Amazon.ShopController do
-    use Amazon.Web, :controller
+defmodule Amazon.Home do
+    use Amazon.Web, :model
 
-    alias Amazon.{Shop, Listings}
+    alias __MODULE__
+    alias Amazon.{Shop, Listings, Home}
 
-    def show(conn, params) do
-        page = string_to_int(params["page"])
-        limit = 24
-        offset = (page - 1) * 24
+    def get_listings(obj) do
         query = """
                 SELECT laptops.id, laptops.img, laptops.price, laptops.rating, laptops.name FROM laptops
                 join brand ON laptops.brand_id = brand.id
@@ -21,18 +19,7 @@ defmodule Amazon.ShopController do
                 AND laptops.price >= ($6) 
                 AND laptops.price < ($7);
                 """
-        result = Ecto.Adapters.SQL.query!(Amazon.Repo, query, ["","","","","",0,20000])
-
-        res = Enum.map result.rows, fn(row) ->
-            Enum.reduce(Enum.zip(result.columns, row), %{}, fn({key, value}, map) ->
-            Map.put(map, key, value)
-            end)
-        end
-        
-        json(conn, %{total: length(res), data: Enum.slice(res, offset, limit)})
+        %{query: query, params: ["","","","","",0,20000]}
     end
 
-    defp string_to_int(val \\ 1) do
-       String.to_integer(val, 10) 
-    end
 end

@@ -18,7 +18,7 @@ defmodule Amazon.Router do
   scope "/api", Amazon do
     pipe_through :api
 
-    get "/shop/:page", ShopController, :show
+    get "/shop/:page", HomeController, :show
 
   end
 
