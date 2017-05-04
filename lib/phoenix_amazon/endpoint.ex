@@ -9,7 +9,7 @@ defmodule Amazon.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :phoenix_amazon, gzip: false,
-    only: ~w(css fonts images assets js favicon.ico robots.txt)
+    only: ~w(css images assets js favicon.ico)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

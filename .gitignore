@@ -18,9 +18,11 @@ erl_crash.dump
 /config/prod.secret.exs
 /priv/static/css/application.css
 /priv/static/js/application.js
+/priv/static/js/*.js
+/priv/static/js/*.css
+/priv/static/assets/images/*.png
 
 *.log
-priv/static
 
 *.DS_Store
 

@@ -8,6 +8,7 @@
     <base href="/">
     <title>Amazon Angular</title>
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="<%= static_path(@conn, "/js/favicon.ico") %>"/>
+    <link href="<%= static_path(@conn, "/js/styles.bundle.css") %>" rel="stylesheet"/>
   </head>
 
   <body>
@@ -15,6 +16,6 @@
       <div class="loader"></div>
     </app-root>
 
-    <script type="text/javascript" src="<%= static_path(@conn, "/js/inline.bundle.js") %>"></script><script type="text/javascript" src="<%= static_path(@conn, "/js/polyfills.bundle.js") %>"></script><script type="text/javascript" src="<%= static_path(@conn, "/js/scripts.bundle.js") %>") %>></script><script type="text/javascript" src="<%= static_path(@conn, "/js/styles.bundle.js") %>"></script><script type="text/javascript" src="<%= static_path(@conn, "/js/vendor.bundle.js") %>" ></script><script type="text/javascript" src="<%= static_path(@conn, "/js/main.bundle.js") %>"></script>
+    <script type="text/javascript" src="<%= static_path(@conn, "/js/inline.bundle.js") %>"></script><script type="text/javascript" src="<%= static_path(@conn, "/js/polyfills.bundle.js") %>"></script><script type="text/javascript" src="<%= static_path(@conn, "/js/scripts.bundle.js") %>") %>></script><script type="text/javascript" src="<%= static_path(@conn, "/js/vendor.bundle.js") %>" ></script><script type="text/javascript" src="<%= static_path(@conn, "/js/main.bundle.js") %>"></script>
   </body>
 </html>

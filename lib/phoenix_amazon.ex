@@ -13,7 +13,7 @@ defmodule Amazon do
       worker(Amazon.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Amazon.Worker, [arg1, arg2, arg3]),
-      # supervisor(Amazon.BoardChannel.Supervisor, []),
+      # supervisor(Amazon.HomeChannel.Supervisor, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

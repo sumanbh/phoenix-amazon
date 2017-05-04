@@ -4,7 +4,8 @@
   "license": "MIT",
   "author": "Suman Bhattarai",
   "scripts": {
-    "ng": "ng"
+    "ng": "ng",
+    "build": "node_modules/@angular/cli/bin/ng build --prod --aot && mv dist/main.*.bundle.js priv/static/js/main.bundle.js && mv dist/vendor.*.bundle.js priv/static/js/vendor.bundle.js && mv dist/inline.*.bundle.js priv/static/js/inline.bundle.js && mv dist/polyfills.*.bundle.js priv/static/js/polyfills.bundle.js && mv dist/scripts.*.bundle.js priv/static/js/scripts.bundle.js && mv dist/styles.*.bundle.css priv/static/js/styles.bundle.css && mv dist/assets/images/* priv/static/assets/images/"
   },
   "private": true,
   "dependencies": {

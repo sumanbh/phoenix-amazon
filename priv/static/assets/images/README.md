@@ -1,0 +1,1 @@
+images from angular-cli get moved here.
