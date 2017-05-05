@@ -10,8 +10,8 @@ defmodule Amazon.HomeController do
 
         listings = Home.get_listings(params)
                 |> Postgres.raw_query()
-                |> (fn(x) -> %{"length" => length(x), "data" => x} end).()
+                |> (fn(x) -> %{"total" => length(x), "data" => Enum.slice(x, offset, limit)} end).()
 
-        render(conn, "index.json", total: listings["total"], data: listings["data"] )
+        render(conn, "index.json", total: listings["total"], data: listings["data"])
     end
 end

@@ -25,37 +25,7 @@ defmodule Amazon.Home do
 
     def filter_truthy(obj) do
         options = Poison.Parser.parse!(obj["obj"])
-        keys = Map.keys(options)
-        truthy_keys = Enum.filter(keys, fn(keys) -> options[keys] == true end)
-        brand_names = %{
-            "Asus" => "Asus",
-            "Acer" => "Acer",
-            "Apple" => "Apple",
-            "HP" => "HP",
-            "Microsoft" => "Microsoft",
-            "Lenovo" => "Lenovo",
-            "Dell" => "Dell",
-            "Samsung" => "Samsung",
-        }
-        os_names = %{
-            "Mac" => "Mac OS X",
-            "Win10" => "Windows 10",
-            "Chrome" => "Chrome OS",
-            "Win8" => "Windows 8.1",
-            "Win7" => "Windows 7 Home",
-        }
-        processor_names = %{
-            "i7" => "Intel Core i7",
-            "i5" => "Intel Core i5",
-            "i3" => "Intel Core i3",
-            "Core2" => "Intel Core 2",
-            "Athlon" => "AMD",
-        }
-        storage_names = %{
-            "SSD" => "SSD",
-            "HardDrive" => "Hard Disk",
-        }
-        price_names = %{
+        price_options = %{
             "isUnder500" => %{ "min" => 0, "max" => 500 },
             "is500to600" => %{ "min" => 500, "max" => 600 },
             "is600to700" => %{ "min" => 600, "max" => 700 },
@@ -64,42 +34,34 @@ defmodule Amazon.Home do
             "is900to1000" => %{ "min" => 900, "max" => 1000 },
             "isAbove1000" => %{ "min" => 1000, "max" => 20000 },
         }
-        ram_names = %{
-            "is64andAbove" => "64", "is32" => "32", "is16" => "16", "is8" => "8", "is4" => "4", "is2" => "2", "is12" => "12",
-        }
 
-        price = truthy_keys
-            |> Enum.filter(&(Map.has_key?(price_names, &1)))
-            |> Enum.map(&(Map.get(price_names, &1)))
+        price = options["price"]
+            |> Enum.filter(&(Map.has_key?(price_options, &1)))
+            |> Enum.map(&(Map.get(price_options, &1)))
             |> Enum.at(0)
+                
+        os = Map.keys(options["os"])
+            |> Enum.filter(fn(x) -> options["os"][x] == true end)
+            |> Enum.join(",")
+
+        brand = Map.keys(options["brand"])
+            |> Enum.filter(fn(x) -> options["brand"][x] == true end)
+            |> Enum.join(",")
+        
+        processor = Map.keys(options["processor"])
+            |> Enum.filter(fn(x) -> options["processor"][x] == true end)
+            |> Enum.join(",")
+        
+        storage = Map.keys(options["storage"])
+            |> Enum.filter(fn(x) -> options["storage"][x] == true end)
+            |> Enum.join(",")
+        
+        ram = Map.keys(options["ram"])
+            |> Enum.filter(fn(x) -> options["ram"][x] == true end)
+            |> Enum.join(",")
                 
         min = (Map.has_key?(obj, "min")) && Numlib.string_to_int(obj["min"]) || price["min"] || 0
         max = (Map.has_key?(obj, "max")) && Numlib.string_to_int(obj["max"]) || price["max"] || 20000
-
-        os = truthy_keys
-            |> Enum.filter(&(Map.has_key?(os_names, &1)))
-            |> Enum.map(&(Map.get(os_names, &1)))
-            |> Enum.join(",")
-        
-        brand = truthy_keys
-            |> Enum.filter(&(Map.has_key?(brand_names, &1)))
-            |> Enum.map(&(Map.get(brand_names, &1)))
-            |> Enum.join(",")
-        
-        processor = truthy_keys
-            |> Enum.filter(&(Map.has_key?(processor_names, &1)))
-            |> Enum.map(&(Map.get(processor_names, &1)))
-            |> Enum.join(",")
-        
-        storage = truthy_keys
-            |> Enum.filter(&(Map.has_key?(storage_names, &1)))
-            |> Enum.map(&(Map.get(storage_names, &1)))
-            |> Enum.join(",")
-        
-        ram = truthy_keys
-            |> Enum.filter(&(Map.has_key?(ram_names, &1)))
-            |> Enum.map(&(Map.get(ram_names, &1)))
-            |> Enum.join(",")
         
         {brand, os, ram, processor, storage, min, max}
     end

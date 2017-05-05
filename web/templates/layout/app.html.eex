@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="sumanbh7@gmail.com">
     <base href="/">
-    <title>Amazon Angular</title>
+    <title>Phoenix Amazon</title>
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="<%= static_path(@conn, "/js/favicon.ico") %>"/>
     <link href="<%= static_path(@conn, "/js/styles.bundle.css") %>" rel="stylesheet"/>
   </head>
