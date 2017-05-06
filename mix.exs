@@ -9,8 +9,8 @@ defmodule Amazon.Mixfile do
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+     aliases: aliases(),
+     deps: deps()]
   end
 
   # Configuration for the OTP application.
@@ -48,7 +48,7 @@ defmodule Amazon.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.5.3"},
-      {:guardian, "~> 0.13.0"},
+      {:guardian, "~> 0.14.2"},
       {:credo, "~> 0.4.11", only: [:dev, :test]},
       {:ex_machina, "~> 1.0.2"},
       {:exactor, "~> 2.2.0"},

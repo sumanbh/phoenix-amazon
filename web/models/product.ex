@@ -25,5 +25,4 @@ defmodule Amazon.Product do
                 """
         %{query: query, params: [price, id]}
     end
-
 end

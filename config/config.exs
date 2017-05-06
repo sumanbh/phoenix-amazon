@@ -34,8 +34,9 @@ config :phoenix, :generators,
 
 # Configure guardian
 config :guardian, Guardian,
-  issuer: "Amazon",
-  ttl: { 3, :days },
+  issuer: "suman.io",
+  allowed_algos: ["HS512"],
+  ttl: { 2, :days },
   verify_issuer: true,
   serializer: Amazon.GuardianSerializer
 

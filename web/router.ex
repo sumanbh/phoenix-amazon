@@ -11,7 +11,7 @@ defmodule Amazon.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
   end
 
@@ -21,6 +21,17 @@ defmodule Amazon.Router do
     get "/shop/:page", HomeController, :show
 
     get "/product/:id", ProductController, :show
+
+    get "/user/cart", CartController, :show
+
+    post "/user/cart/add", CartController, :add
+
+  end
+
+  scope "/login", Amazon do
+    pipe_through :api
+
+    post "/", LoginController, :create
 
   end
 

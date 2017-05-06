@@ -1,6 +1,6 @@
 defmodule Amazon.HomeController do
     use Amazon.Web, :controller
-    
+
     alias Amazon.{Home, Postgres, Numlib}
 
     def show(conn, params) do
