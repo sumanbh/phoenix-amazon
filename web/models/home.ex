@@ -26,20 +26,6 @@ defmodule Amazon.Home do
 
     def filter_truthy(obj) do
         options = Parser.parse!(obj["obj"])
-        price_options = %{
-           "isUnder500" => %{"min"=> 0,"max"=> 500},
-           "is500to600" => %{"min"=> 500,"max"=> 600},
-           "is600to700" => %{"min"=> 600,"max"=> 700},
-           "is700to800" => %{"min"=> 700,"max"=> 800},
-           "is800to900" => %{"min"=> 800,"max"=> 900},
-           "is900to1000" => %{"min"=> 900,"max"=> 1000},
-           "isAbove1000" => %{"min"=> 1000,"max"=> 20_000},
-        }
-
-        price = options["price"]
-            |> Enum.filter(&(Map.has_key?(price_options, &1)))
-            |> Enum.map(&(Map.get(price_options, &1)))
-            |> Enum.at(0)
 
         os = options["os"]
             |> Map.keys()
@@ -66,8 +52,8 @@ defmodule Amazon.Home do
             |> Enum.filter(fn(x) -> options["ram"][x] == true end)
             |> Enum.join(",")
 
-        min = (Map.has_key?(obj, "min")) && Numlib.string_to_int(obj["min"]) || price["min"] || 0
-        max = (Map.has_key?(obj, "max")) && Numlib.string_to_int(obj["max"]) || price["max"] || 20_000
+        min = (Map.has_key?(obj, "min")) && Numlib.string_to_int(obj["min"]) || 0
+        max = (Map.has_key?(obj, "max")) && Numlib.string_to_int(obj["max"]) || 20_000
 
         {brand, os, ram, processor, storage, min, max}
     end
