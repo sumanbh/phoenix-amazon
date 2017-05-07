@@ -37,7 +37,7 @@ config :phoenix_amazon, Amazon.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "amazonia",
+  database: "phoenix_amazon_dev",
   hostname: "localhost",
   pool_size: 5
 
