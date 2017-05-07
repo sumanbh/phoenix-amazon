@@ -1,4 +1,4 @@
-# Password is hunter2 or ****** so dont even try
+-- Password is hunter2 or ****** so dont even try
 INSERT INTO customers (given_name, fullname, email, password, local) VALUES ('Johnny', 'Johnny Utah', 'demo@sumanb.com', '$2a$10$YHttx140b7bwH2ICO4X2fOn03cQagPTWX/iCa7FvzjJMgDbqOYso2', TRUE);
 
 INSERT INTO os (name)
