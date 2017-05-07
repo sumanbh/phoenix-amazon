@@ -31,6 +31,13 @@ defmodule Amazon.Cart do
         %{query: query, params: [product, quantity, user]}
     end
 
+    def remove_product(user, product) do
+        query = """
+                DELETE FROM cart WHERE customer_id = $1 AND id = $2;
+                """
+        %{query: query, params: [user, product]}
+    end
+
     def update_old(new_total, user, product) do
         query = """
                 UPDATE cart SET product_quantity = ($1) WHERE customer_id = ($2) and product_id = ($3);

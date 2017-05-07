@@ -2,7 +2,7 @@ defmodule Amazon.CartController do
     use Amazon.Web, :controller
     plug Guardian.Plug.EnsureAuthenticated, handler: Amazon.LoginController
 
-    alias Amazon.{Cart, Postgres, CartTotal}
+    alias Amazon.{Cart, Postgres, CartTotal, Numlib}
     alias Guardian.{Plug}
 
     def show(conn, _params) do
@@ -17,16 +17,16 @@ defmodule Amazon.CartController do
             [cart | _] = CartTotal.get_cart(user_id)
                 |> Postgres.raw_query()
             conn
-            |> put_status(:created)
+            |> put_status(:ok)
             |> json(%{sum: price, data: results, cart: cart["total"] || 0})
         else
             conn
-            |> put_status(:created)
+            |> put_status(:ok)
             |> json(results)
         end
     end
 
-    def add(conn, %{"productId" => product, "productQuantity" => quantity}) do
+    def create(conn, %{"productId" => product, "productQuantity" => quantity}) do
         current_user = Plug.current_resource(conn)
         user_id = current_user.id
 
@@ -51,5 +51,19 @@ defmodule Amazon.CartController do
             |> put_status(:created)
             |> json(%{cart: cart_total, success: true})
         end
+    end
+
+    def remove(conn, %{"id" => id}) do
+        current_user = Plug.current_resource(conn)
+        user_id = current_user.id
+        product = Numlib.string_to_int(id || 0)
+
+        Cart.remove_product(user_id, product)
+            |> Postgres.raw_query()
+        [cart | _] = CartTotal.get_cart(user_id)
+            |> Postgres.raw_query()
+        conn
+        |> put_status(:created)
+        |> json(%{success: true, cart: cart["total"] || 0})
     end
 end
