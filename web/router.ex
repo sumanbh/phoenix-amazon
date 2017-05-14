@@ -15,6 +15,14 @@ defmodule Amazon.Router do
         plug Guardian.Plug.LoadResource
     end
 
+    scope "/auth", Amazon do
+        pipe_through :api
+
+        post "/login", LoginController, :create
+
+        post "/logout", LoginController, :delete
+    end
+
     scope "/api", Amazon do
         pipe_through :api
 
@@ -39,18 +47,6 @@ defmodule Amazon.Router do
 
             post "/update", ProfileController, :update
         end
-    end
-
-    scope "/login", Amazon do
-        pipe_through :api
-
-        post "/", LoginController, :create
-    end
-
-    scope "/logout", Amazon do
-        pipe_through :api
-
-        post "/", LoginController, :delete
     end
 
     scope "/", Amazon do
