@@ -10,7 +10,10 @@ defmodule Amazon.LoginView do
   end
 
   def render("error.json", _) do
-    false
+    %{
+      success: false,
+      err: "Invalid email and or password."
+    }
   end
 
   def render("delete.json", _) do

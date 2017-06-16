@@ -2,7 +2,7 @@ defmodule Amazon.CheckoutController do
     use Amazon.Web, :controller
     plug Guardian.Plug.EnsureAuthenticated, handler: Amazon.LoginController
 
-    alias Amazon.{Cart, Postgres, CartTotal, Numlib, Checkout, Order, Repo}
+    alias Amazon.{Cart, Postgres, Checkout, Order, Repo}
     alias Guardian.{Plug}
 
     def show(conn, _params) do
