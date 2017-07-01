@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :phoenix_amazon, Amazon.Endpoint,
-  http: [port: 4000],
+  http: [port: 3000],
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
@@ -44,3 +44,13 @@ config :phoenix_amazon, Amazon.Repo,
 # Guardian configuration
 config :guardian, Guardian,
   secret_key: "W9cDv9fjPtsYv2gItOcFb5PzmRzqGkrOsJGmby0KpBOlHJIlhxMKFmIlcCG9PVFQ"
+
+config :phoenix_amazon, Amazon.Google,
+  client_id: System.get_env("GOOGLE_ID"),
+  client_secret: System.get_env("GOOGLE_SECRET"),
+  redirect_uri: System.get_env("GOOGLE_URI")
+
+config :phoenix_amazon, Amazon.Facebook,
+  client_id: System.get_env("FACEBOOK_ID"),
+  client_secret: System.get_env("FACEBOOK_SECRET"),
+  redirect_uri: System.get_env("FACEBOOK_URI")

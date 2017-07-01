@@ -27,12 +27,13 @@ defmodule Amazon.Mixfile do
       :phoenix_ecto,
       :postgrex,
       :comeonin,
-      :ex_machina
+      :ex_machina,
+      :oauth2
     ]]
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "web", "test"]
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   # Specifies your project dependencies.
@@ -53,7 +54,8 @@ defmodule Amazon.Mixfile do
       {:ex_machina, "~> 1.0.2"},
       {:exactor, "~> 2.2.0"},
       {:hound, "~> 1.0.2"},
-      {:mix_test_watch, "~> 0.2", only: :dev}
+      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:oauth2, "~> 0.9"}
      ]
   end
 

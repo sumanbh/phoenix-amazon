@@ -11,4 +11,4 @@ You need to have **Elixir v1.3** and **PostgreSQL** installed.
   4. Create and migrate database with `mix ecto.create && mix ecto.migrate`
   5. Start Phoenix endpoint with `mix phoenix.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:3000`](http://localhost:3000) from your browser.

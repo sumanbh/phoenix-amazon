@@ -20,7 +20,13 @@ defmodule Amazon.Router do
 
         post "/login", LoginController, :create
 
-        post "/logout", LoginController, :delete
+        get "/logout", LoginController, :delete
+
+        pipe_through :browser
+
+        get "/:provider", LoginController, :index
+
+        get "/:provider/callback", LoginController, :callback
     end
 
     scope "/api", Amazon do

@@ -23,10 +23,6 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
-
 # Configure phoenix generators
 config :phoenix, :generators,
   migration: true,
@@ -36,9 +32,13 @@ config :phoenix, :generators,
 config :guardian, Guardian,
   issuer: "suman.io",
   allowed_algos: ["HS512"],
-  ttl: { 2, :days },
+  ttl: {2, :days},
   verify_issuer: true,
   serializer: Amazon.GuardianSerializer
 
 # Start Hound for PhantomJs
 config :hound, driver: "chrome_driver"
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env}.exs"
