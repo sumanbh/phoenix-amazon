@@ -12,3 +12,5 @@ You need to have **Elixir v1.3** and **PostgreSQL** installed.
   5. Start Phoenix endpoint with `mix phoenix.server`
 
 Now you can visit [`localhost:3000`](http://localhost:3000) from your browser.
+
+![`product`](http://suman.io/images/apple.resized.png)
