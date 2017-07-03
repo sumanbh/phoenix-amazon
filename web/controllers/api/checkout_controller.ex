@@ -35,10 +35,13 @@ defmodule Amazon.CheckoutController do
         if length(results) > 0 do
             [orderline | _] = Checkout.insert_orderline(user_id)
                 |> Postgres.raw_query()
+
             order_list = Enum.map(results, fn(x) ->
                 [orderline_id: orderline["id"], product_id: x["product_id"], quantity: x["product_quantity"], fullname: fullname, address: address, city: city, state: state, zip: to_string(zip)] end)
             Repo.insert_all(Order, order_list)
+
             Checkout.delete_cart(user_id) |> Postgres.raw_query()
+
             conn
             |> put_status(:created)
             |> json(%{cart: 0, success: true})

@@ -1,8 +1,8 @@
 defmodule Amazon.LoginController do
     use Amazon.Web, :controller
 
-    alias Amazon.{Login, LoginView, CartTotal, Postgres, Google, Facebook}
-    alias Guardian.{Plug}
+    alias Amazon.{Login, LoginView, CartTotal, Postgres, Google, Facebook, StringToAtom}
+    # alias Guardian.{Plug}
 
     plug :scrub_params, "email" when action in [:create]
     plug :scrub_params, "password" when action in [:create]
@@ -59,7 +59,7 @@ defmodule Amazon.LoginController do
                     res = insert_user!(provider, user)
                         |> Postgres.raw_query()
                     [head | _tail] = res
-                    new_user = for {key, val} <- head, into: %{}, do: {String.to_atom(key), val}
+                    new_user = StringToAtom.convert(head)
 
                     {:ok, jwt, _} = new_user |> Guardian.encode_and_sign(:token, name: new_user.given_name)
 
@@ -67,10 +67,11 @@ defmodule Amazon.LoginController do
                     |> redirect(to: "/validate?cart=0&token=#{jwt}")
                 else
                     [head | _tail] = result
-                    user_found = for {key, val} <- head, into: %{}, do: {String.to_atom(key), val}
+                    user_found = StringToAtom.convert(head)
 
                     [cart | _] = CartTotal.get_cart(user_found.id)
                                 |> Postgres.raw_query()
+
                     {:ok, jwt, _} = user_found |> Guardian.encode_and_sign(:token, name: user_found.given_name)
 
                     conn
@@ -103,13 +104,13 @@ defmodule Amazon.LoginController do
     defp get_token!("facebook", code), do: Facebook.get_token!(code: code)
     defp get_token!(_, _), do: raise "No matching provider available"
 
-    def check_database!("google", user), do: Google.check_database(user.id, user.email)
-    def check_database!("facebook", user), do: Facebook.check_database(user.id, user.email)
-    def check_database!(_, _), do: raise "No matching provider available"
+    defp check_database!("google", user), do: Google.check_database(user.id, user.email)
+    defp check_database!("facebook", user), do: Facebook.check_database(user.id, user.email)
+    defp check_database!(_, _), do: raise "No matching provider available"
 
-    def insert_user!("google", user), do: Google.insert_user(user.id, user.email, user.name, user.given_name)
-    def insert_user!("facebook", user), do: Facebook.insert_user(user.id, user.email, user.name, user.given_name)
-    def insert_user!(_, _), do: raise "No matching provider available"
+    defp insert_user!("google", user), do: Google.insert_user(user.id, user.email, user.name, user.given_name)
+    defp insert_user!("facebook", user), do: Facebook.insert_user(user.id, user.email, user.name, user.given_name)
+    defp insert_user!(_, _), do: raise "No matching provider available"
 
     defp user_request!("google", client) do
         response = OAuth2.Client.get!(client, "https://www.googleapis.com/plus/v1/people/me/openIdConnect")
